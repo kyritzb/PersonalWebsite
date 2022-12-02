@@ -48,7 +48,7 @@ const LoadingState = (props) => {
             background-color: rgba(108, 69, 193, 1);
           }
           .loading-state-group25 {
-            top: 20vh;
+            top: 15vh;
             left: 0px;
             right: 0px;
             width: 973.067626953125px;

@@ -1,7 +1,9 @@
 import React from "react";
 import Head from "next/head";
-
+import Navbar from "../components/Navbar";
+import { useRouter } from "next/router";
 const LoadingState = (props) => {
+  const router = useRouter();
   return (
     <>
       <div className="loading-state-container">
@@ -17,41 +19,15 @@ const LoadingState = (props) => {
             />
             <video
               src="/videos/start.mp4"
-              controls
               autoPlay
               muted
               poster="/playground_assets/video%20cover%20ayp1nj9zu3k-500h.png"
               playsInline
               className="loading-state-video"
+              onEnded={() => {
+                router.push("/story");
+              }}
             ></video>
-          </div>
-          <div className="loading-state-frame7">
-            <span className="loading-state-text">
-              <span>Bryan Kyritz</span>
-            </span>
-            <div className="loading-state-frame29">
-              <div className="loading-state-select">
-                <div className="loading-state-frame30">
-                  <span className="loading-state-text2">
-                    <span>Resume</span>
-                  </span>
-                </div>
-              </div>
-              <div className="loading-state-select1">
-                <div className="loading-state-frame301">
-                  <span className="loading-state-text4">
-                    <span>Portfolio</span>
-                  </span>
-                </div>
-              </div>
-              <div className="loading-state-select2">
-                <div className="loading-state-frame302">
-                  <span className="loading-state-text6">
-                    <span>Blog</span>
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -72,7 +48,7 @@ const LoadingState = (props) => {
             background-color: rgba(108, 69, 193, 1);
           }
           .loading-state-group25 {
-            top: 238px;
+            top: 20vh;
             left: 0px;
             right: 0px;
             width: 973.067626953125px;

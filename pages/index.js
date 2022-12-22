@@ -6,6 +6,7 @@ const LoadingState = (props) => {
   const router = useRouter();
   return (
     <>
+      <Navbar />
       <div className="loading-state-container">
         <Head>
           <title>Bryan Kyritz</title>
@@ -27,6 +28,7 @@ const LoadingState = (props) => {
               onEnded={() => {
                 router.push("/story");
               }}
+              style={{ borderRadius: "25px" }}
             ></video>
           </div>
         </div>

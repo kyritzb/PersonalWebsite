@@ -2,7 +2,13 @@ import React from "react";
 
 import Navbar from "../components/Navbar";
 import ChatBubble from "../components/ChatBubble";
+import { useRouter } from "next/router";
+
 const LoadingState = (props) => {
+  const router = useRouter();
+  function nextScreen() {
+    router.push("/menu");
+  }
   return (
     <div>
       <Navbar />
@@ -48,7 +54,7 @@ const LoadingState = (props) => {
           <div
             style={{
               backgroundColor: "transparent",
-              width: "973.067626953125px",
+              width: "1200px",
               height: "547.123779296875px",
               display: "flex",
               flexDirection: "row",
@@ -89,7 +95,7 @@ const LoadingState = (props) => {
               borderColor: "transparent",
               position: "absolute",
               top: "49px",
-              left: "154px",
+              left: "153px",
             }}
           />
           <img
@@ -119,9 +125,13 @@ const LoadingState = (props) => {
           <ChatBubble
             messages={[
               "Hello world! My name is Bryan Kyritz.",
-              "I just graduated! With a masters in computer eng.",
-              "From Stevens Institute of technology.",
+              "I am 22 years old and just graduated",
+              "with a masters degree in computer",
+              "engineering from Stevens Tech.",
+              "I'm passionate about web3 & ai.",
+              "Welcome to my website! :)",
             ]}
+            onDone={nextScreen}
           />
         </div>
       </div>

@@ -1,22 +1,63 @@
 import React, { useEffect, useState } from "react";
+import { useKeyPressEvent } from "react-use";
 
 const ChatBubble = ({ messages, onDone }) => {
   const [text, setText] = useState("");
   const [fullText, setFullText] = useState("");
   const [index, setIndex] = useState(0);
   const [messageIndex, setMessageIndex] = useState(0);
+  const [done, setDone] = useState(false);
 
-  useEffect(() => {
-    //select message number
-    console.log(messages);
-    if (messages.length > 0 && messageIndex == 0) {
-      console.log("set");
-      setFullText(messages[0]);
+  useKeyPressEvent("Backspace", deleteClicked);
+  useKeyPressEvent("Enter", enterIsClicked);
+
+  //goes back
+  function deleteClicked() {
+    if (messageIndex >= 1) {
+      setText("");
+      setIndex(0);
+      let newMessageIndex = messageIndex - 1;
+      setFullText(messages[newMessageIndex]);
+      setMessageIndex(newMessageIndex);
     }
-    //start counter
-    if (index < fullText.length) {
-      setTimeout(() => {
-        console.log("set text:", text + fullText[index]);
+  }
+
+  //goes forwards
+  function enterIsClicked() {
+    if (done) {
+      setText("");
+      setIndex(0);
+      let newMessageIndex = messageIndex + 1;
+      if (messages.length == newMessageIndex) {
+        onDone();
+      } else {
+        setFullText(messages[newMessageIndex]);
+        setMessageIndex(newMessageIndex);
+        setDone(false);
+      }
+    } else {
+      setDone(true);
+      setText(messages[messageIndex]);
+      let newMessageIndex = messageIndex++;
+      setIndex(newMessageIndex);
+      setFullText(messages[newMessageIndex]);
+    }
+  }
+
+  function timeout(delay) {
+    return new Promise((res) => setTimeout(res, delay));
+  }
+
+  async function run() {
+    console.log(messages, messageIndex, fullText, text);
+    if (!done) {
+      if (messages.length > 0 && messageIndex == 0) {
+        setFullText(messages[0]);
+      }
+      //start counter
+      if (index < fullText.length) {
+        await timeout(100); //for 1 sec delay
+
         setText(text + fullText[index]);
         setIndex(index + 1);
 
@@ -25,10 +66,16 @@ const ChatBubble = ({ messages, onDone }) => {
         if (doneWithWord && messages.length > messageIndex) {
           let newIndex = messageIndex++;
           setFullText(messages[newIndex]);
-          console.log("set new word");
+          setDone(true);
         }
-      }, 150);
+      }
+    } else {
+      setText(messages[messageIndex]);
     }
+  }
+
+  useEffect(() => {
+    run();
   }, [index, messageIndex, fullText.length]);
 
   return (
@@ -116,7 +163,9 @@ const ChatBubble = ({ messages, onDone }) => {
           textDecoration: "none",
         }}
       >
-        <span>{text}</span>
+        <span>
+          {text} {done ? "[Enter]" : ""}
+        </span>
       </span>
       <img
         src="/playground_assets/image71998-tbnt-200w.png"

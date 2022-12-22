@@ -22,7 +22,9 @@ const LoadingState = (props) => {
         }}
       >
         <span className="loading-state-text">
-          <span>Bryan Kyritz</span>
+          <span style={{ fontFamily: "Pixeloid Mono", fontSize: "26px " }}>
+            Bryan Kyritz
+          </span>
         </span>
         <div style={{ display: "flex", gap: "45px", flexDirection: "row" }}>
           <Option text="Resume" />
